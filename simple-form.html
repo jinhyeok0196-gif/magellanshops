@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>액상 취향 조사폼</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0f172a; color: #f1f5f9; }
+        .form-container { max-width: 500px; margin: 50px auto; padding: 30px; background: #1e293b; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+        input[type="text"], input[type="range"] { width: 100%; margin-top: 8px; }
+        label { display: block; margin-top: 20px; font-weight: 600; font-size: 0.9rem; color: #94a3b8; }
+        .slider-labels { display: flex; justify-content: space-between; font-size: 0.75rem; color: #64748b; margin-top: 4px; }
+        button { width: 100%; margin-top: 30px; padding: 12px; background: #38bdf8; color: #0f172a; font-weight: bold; border-radius: 8px; transition: background 0.2s; }
+        button:hover { background: #7dd3fc; }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2 class="text-2xl font-bold mb-6 text-white">액상 취향 조사</h2>
+    <form action="https://formspree.io/f/mojzzqgd" method="POST">
+        <!-- 고객 정보 -->
+        <div>
+            <label for="name">이름</label>
+            <input type="text" id="name" name="name" required placeholder="성함을 입력해주세요" 
+                class="bg-slate-700 border-none rounded-md p-2 text-white focus:ring-2 focus:ring-sky-500 outline-none">
+        </div>
+
+        <div>
+            <label for="phone">전화번호 뒷자리 (4자리)</label>
+            <input type="text" id="phone" name="phone_last_4" pattern="[0-9]{4}" maxlength="4" required placeholder="예: 1234" 
+                class="bg-slate-700 border-none rounded-md p-2 text-white focus:ring-2 focus:ring-sky-500 outline-none">
+        </div>
+
+        <!-- 액상 취향 -->
+        <div class="mt-8 pt-6 border-t border-slate-700">
+            <h3 class="text-lg font-semibold text-sky-400">선호 액상 취향</h3>
+
+            <label for="sweetness">단맛 (1-5)</label>
+            <input type="range" id="sweetness" name="sweetness" min="1" max="5" step="1" value="3" class="accent-sky-500">
+            <div class="slider-labels"><span>약함</span><span>중간</span><span>강함</span></div>
+
+            <label for="cooling">쿨링 (1-5)</label>
+            <input type="range" id="cooling" name="cooling" min="1" max="5" step="1" value="3" class="accent-sky-500">
+            <div class="slider-labels"><span>약함</span><span>중간</span><span>강함</span></div>
+
+            <label for="throat_hit">타격감 (1-5)</label>
+            <input type="range" id="throat_hit" name="throat_hit" min="1" max="5" step="1" value="3" class="accent-sky-500">
+            <div class="slider-labels"><span>약함</span><span>중간</span><span>강함</span></div>
+
+            <label for="flavor_intensity">향 강도 (1-5)</label>
+            <input type="range" id="flavor_intensity" name="flavor_intensity" min="1" max="5" step="1" value="3" class="accent-sky-500">
+            <div class="slider-labels"><span>약함</span><span>중간</span><span>강함</span></div>
+        </div>
+
+        <button type="submit">취향 정보 전송하기</button>
+    </form>
+</div>
+
+</body>
+</html>
