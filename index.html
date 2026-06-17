@@ -162,7 +162,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="hidden md:flex gap-8 items-center">
 <a class="font-label-md text-label-md text-primary transition-opacity hover:opacity-80" href="#">홈</a>
 <a class="font-label-md text-label-md text-on-surface-variant transition-opacity hover:opacity-80" href="#">기록</a>
-<a class="font-label-md text-label-md text-on-surface-variant transition-opacity hover:opacity-80" href="#">튜너</a>
+<a class="font-label-md text-label-md text-on-surface-variant transition-opacity hover:opacity-80" href="#tuner">튜너</a>
 <a class="font-label-md text-label-md text-on-surface-variant transition-opacity hover:opacity-80" href="#">결과</a>
 </div>
 <div class="w-10 h-10 rounded-full bg-surface-container-highest border border-white/10 flex items-center justify-center overflow-hidden active:scale-95 duration-200">
@@ -190,7 +190,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         인공신경망의 강력한 성능을 활용해 사용자의 취향 프로필과 하드웨어 스펙을 분석합니다. 단 몇 초 만에 고도로 개인화된 액상 추천을 받아보세요.
                     </p>
 <div class="flex flex-col sm:flex-row gap-4 pt-4">
-<button class="px-8 py-4 bg-gradient-to-r from-secondary to-tertiary text-on-secondary font-headline-md text-headline-md rounded-xl shadow-[0_4px_20px_rgba(76,215,246,0.3)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 group">
+<button onclick="document.getElementById('tuner').scrollIntoView({behavior: 'smooth'})" class="px-8 py-4 bg-gradient-to-r from-secondary to-tertiary text-on-secondary font-headline-md text-headline-md rounded-xl shadow-[0_4px_20px_rgba(76,215,246,0.3)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 group">
                             추천 시작하기
                             <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
 </button>
@@ -293,6 +293,131 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 </div>
 </section>
+
+<!-- 취향 튜너 폼 섹션 -->
+<section id="tuner" class="relative z-10 px-margin-mobile md:px-margin-desktop py-24 max-w-container-max mx-auto scroll-mt-20">
+    <div class="glass-card rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden">
+        <!-- 앰비언트 백그라운드 효과 -->
+        <div class="absolute -right-24 -bottom-24 w-80 h-80 bg-tertiary/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-24 -top-24 w-80 h-80 bg-secondary/10 blur-3xl pointer-events-none"></div>
+
+        <div class="text-center max-w-2xl mx-auto mb-12 space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-container/20 border border-secondary/20 text-secondary font-label-sm text-label-sm">
+                <span class="material-symbols-outlined text-sm">tune</span>
+                <span>Taste Profile Tuner</span>
+            </div>
+            <h2 class="font-display text-display-mobile md:text-headline-lg">나만의 액상 취향 튜닝</h2>
+            <p class="text-on-surface-variant font-body-md">고객 정보와 선호하시는 액상 취향을 입력해 주시면 딱 맞는 맞춤 액상을 매칭해 드립니다.</p>
+        </div>
+
+        <form action="https://formspree.io/f/mojzzqgd" method="POST" id="taste-form" class="space-y-8 max-w-3xl mx-auto">
+            <!-- 고유 구분을 위해 필요한 필드들 -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- 이름 -->
+                <div class="space-y-2">
+                    <label for="name" class="block font-label-md text-label-sm text-outline uppercase tracking-wider">이름</label>
+                    <input type="text" id="name" name="name" required placeholder="성함을 입력해주세요" 
+                        class="w-full px-4 py-3 rounded-xl bg-surface-container border border-white/10 text-on-surface placeholder:text-outline/40 focus:border-tertiary focus:ring-1 focus:ring-tertiary focus:outline-none transition-all">
+                </div>
+                <!-- 전화번호 뒷번호 -->
+                <div class="space-y-2">
+                    <label for="phone_last_4" class="block font-label-md text-label-sm text-outline uppercase tracking-wider">전화번호 뒷 4자리</label>
+                    <input type="text" id="phone_last_4" name="phone_last_4" pattern="[0-9]{4}" maxlength="4" required placeholder="예: 1234" 
+                        class="w-full px-4 py-3 rounded-xl bg-surface-container border border-white/10 text-on-surface placeholder:text-outline/40 focus:border-tertiary focus:ring-1 focus:ring-tertiary focus:outline-none transition-all">
+                </div>
+            </div>
+
+            <!-- 선호 액상 취향 슬라이더 -->
+            <div class="space-y-6 pt-4 border-t border-white/5">
+                <h3 class="font-headline-md text-lg text-white mb-4">선호 액상 취향 설정</h3>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- 단맛 -->
+                    <div class="space-y-3 p-5 rounded-2xl bg-white/5 border border-white/5">
+                        <div class="flex justify-between items-center">
+                            <label for="sweetness" class="font-label-md text-sm text-secondary-fixed-dim font-semibold flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-lg">cookie</span> 단맛
+                            </label>
+                            <span id="sweetness-val" class="font-label-sm text-xs bg-secondary-container/40 text-secondary-fixed px-2 py-0.5 rounded-full">3단계 (보통)</span>
+                        </div>
+                        <input type="range" id="sweetness" name="sweetness" min="1" max="5" value="3" 
+                            class="w-full h-2 rounded-lg bg-surface-container-highest appearance-none cursor-pointer accent-secondary focus:outline-none">
+                        <div class="flex justify-between text-[11px] text-outline/60 px-1">
+                            <span>안 닮 (1)</span>
+                            <span>매우 닮 (5)</span>
+                        </div>
+                    </div>
+
+                    <!-- 쿨링 -->
+                    <div class="space-y-3 p-5 rounded-2xl bg-white/5 border border-white/5">
+                        <div class="flex justify-between items-center">
+                            <label for="cooling" class="font-label-md text-sm text-tertiary font-semibold flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-lg">ac_unit</span> 쿨링 (청량감)
+                            </label>
+                            <span id="cooling-val" class="font-label-sm text-xs bg-tertiary-container/40 text-tertiary px-2 py-0.5 rounded-full">3단계 (보통)</span>
+                        </div>
+                        <input type="range" id="cooling" name="cooling" min="1" max="5" value="3" 
+                            class="w-full h-2 rounded-lg bg-surface-container-highest appearance-none cursor-pointer accent-tertiary focus:outline-none">
+                        <div class="flex justify-between text-[11px] text-outline/60 px-1">
+                            <span>없음 (1)</span>
+                            <span>매우 강함 (5)</span>
+                        </div>
+                    </div>
+
+                    <!-- 타격감 -->
+                    <div class="space-y-3 p-5 rounded-2xl bg-white/5 border border-white/5">
+                        <div class="flex justify-between items-center">
+                            <label for="throat_hit" class="font-label-md text-sm text-primary-fixed-dim font-semibold flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-lg">bolt</span> 타격감 (목넘김)
+                            </label>
+                            <span id="throat-hit-val" class="font-label-sm text-xs bg-white/10 text-white px-2 py-0.5 rounded-full">3단계 (보통)</span>
+                        </div>
+                        <input type="range" id="throat_hit" name="throat_hit" min="1" max="5" value="3" 
+                            class="w-full h-2 rounded-lg bg-surface-container-highest appearance-none cursor-pointer accent-primary focus:outline-none">
+                        <div class="flex justify-between text-[11px] text-outline/60 px-1">
+                            <span>부드러움 (1)</span>
+                            <span>강함 (5)</span>
+                        </div>
+                    </div>
+
+                    <!-- 향강도 -->
+                    <div class="space-y-3 p-5 rounded-2xl bg-white/5 border border-white/5">
+                        <div class="flex justify-between items-center">
+                            <label for="flavor_intensity" class="font-label-md text-sm text-secondary-fixed-dim font-semibold flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-lg">air</span> 향 강도
+                            </label>
+                            <span id="flavor-intensity-val" class="font-label-sm text-xs bg-secondary-container/40 text-secondary-fixed px-2 py-0.5 rounded-full">3단계 (보통)</span>
+                        </div>
+                        <input type="range" id="flavor_intensity" name="flavor_intensity" min="1" max="5" value="3" 
+                            class="w-full h-2 rounded-lg bg-surface-container-highest appearance-none cursor-pointer accent-secondary focus:outline-none">
+                        <div class="flex justify-between text-[11px] text-outline/60 px-1">
+                            <span>은은함 (1)</span>
+                            <span>진함 (5)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 전송 버튼 -->
+            <div class="text-center pt-6">
+                <button type="submit" id="submit-btn" class="w-full sm:w-auto px-12 py-4 bg-gradient-to-r from-secondary to-tertiary text-on-secondary font-headline-md text-headline-md rounded-xl shadow-[0_4px_20px_rgba(76,215,246,0.3)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 mx-auto group">
+                    <span class="material-symbols-outlined group-hover:rotate-12 transition-transform">send</span>
+                    취향 정보 전송하기
+                </button>
+            </div>
+        </form>
+
+        <!-- 완료/에러 상태 피드백 메시지 (기본 숨김) -->
+        <div id="form-feedback" class="hidden mt-8 max-w-xl mx-auto p-6 glass-card rounded-2xl border border-tertiary/20 text-center space-y-4">
+            <div class="w-16 h-16 mx-auto rounded-full bg-tertiary-container/30 flex items-center justify-center text-tertiary" id="feedback-icon-container">
+                <span class="material-symbols-outlined text-3xl" id="feedback-icon">check_circle</span>
+            </div>
+            <h4 class="font-headline-md text-lg text-white" id="feedback-title">취향 프로필 저장 완료!</h4>
+            <p class="text-on-surface-variant text-sm" id="feedback-desc">성공적으로 분석 요청이 전달되었습니다. 고객님의 취향에 가장 알맞은 액상을 선정하여 안내해 드리겠습니다.</p>
+        </div>
+    </div>
+</section>
+
 <!-- 액상 쇼케이스 섹션 -->
 <section class="relative z-10 px-margin-mobile md:px-margin-desktop py-24 bg-surface-container-lowest/50">
 <div class="max-w-container-max mx-auto flex flex-col md:flex-row items-center gap-16">
@@ -343,7 +468,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span class="material-symbols-outlined">history</span>
 <span class="font-label-sm text-label-sm">기록</span>
 </a>
-<a class="flex flex-col items-center justify-center text-outline transition-transform duration-200 active:scale-90" href="#">
+<a class="flex flex-col items-center justify-center text-outline transition-transform duration-200 active:scale-90" href="#tuner">
 <span class="material-symbols-outlined">tune</span>
 <span class="font-label-sm text-label-sm">튜너</span>
 </a>
@@ -360,6 +485,89 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             glow.style.left = e.clientX + 'px';
             glow.style.top = e.clientY + 'px';
         });
+
+        // 슬라이더 값 실시간 변경 스크립트
+        const sliders = [
+            { id: 'sweetness', valId: 'sweetness-val', prefix: '단맛: ', levels: ['매우 안 닮', '안 닮', '보통', '닮', '매우 닮'] },
+            { id: 'cooling', valId: 'cooling-val', prefix: '쿨링: ', levels: ['없음', '약함', '보통', '강함', '매우 강함'] },
+            { id: 'throat_hit', valId: 'throat-hit-val', prefix: '타격감: ', levels: ['부드러움', '중간', '보통', '타격감 강함', '매우 강함'] },
+            { id: 'flavor_intensity', valId: 'flavor-intensity-val', prefix: '향 강도: ', levels: ['매우 은은함', '은은함', '보통', '진함', '매우 진함'] }
+        ];
+
+        sliders.forEach(slider => {
+            const el = document.getElementById(slider.id);
+            const valEl = document.getElementById(slider.valId);
+            if (el && valEl) {
+                const updateVal = () => {
+                    const idx = parseInt(el.value) - 1;
+                    valEl.textContent = `${el.value}단계 (${slider.levels[idx]})`;
+                };
+                el.addEventListener('input', updateVal);
+                updateVal(); // 초기화
+            }
+        });
+
+        // Formspree AJAX 폼 서브미션 핸들러
+        const form = document.getElementById('taste-form');
+        const feedback = document.getElementById('form-feedback');
+        const submitBtn = document.getElementById('submit-btn');
+
+        if (form && feedback && submitBtn) {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // 버튼 비활성화 및 로딩 표시
+                submitBtn.disabled = true;
+                const originalBtnHtml = submitBtn.innerHTML;
+                submitBtn.innerHTML = `
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-on-secondary inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    전송 중...
+                `;
+
+                const data = new FormData(form);
+                
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: data,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    feedback.classList.remove('hidden');
+                    // 스크롤 이동
+                    feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                    if (response.ok) {
+                        // 성공 시 폼 숨김
+                        form.classList.add('hidden');
+                        
+                        // 성공 스타일 설정
+                        document.getElementById('feedback-icon-container').className = "w-16 h-16 mx-auto rounded-full bg-tertiary-container/30 flex items-center justify-center text-tertiary";
+                        document.getElementById('feedback-icon').textContent = "check_circle";
+                        document.getElementById('feedback-title').textContent = "취향 프로필 저장 완료!";
+                        document.getElementById('feedback-desc').textContent = `${data.get('name')}님의 취향정보(뒷번호: ${data.get('phone_last_4')})가 성공적으로 분석 요청되었습니다. 맞춤형 액상 선정을 마치는 대로 안내해 드리겠습니다.`;
+                        form.reset();
+                    } else {
+                        throw new Error('네트워크 응답 오류');
+                    }
+                } catch (error) {
+                    // 실패 스타일 설정
+                    document.getElementById('feedback-icon-container').className = "w-16 h-16 mx-auto rounded-full bg-error-container/30 flex items-center justify-center text-error";
+                    document.getElementById('feedback-icon').textContent = "error";
+                    document.getElementById('feedback-title').textContent = "전송 실패";
+                    document.getElementById('feedback-desc').textContent = "오류가 발생하여 정보를 전송하지 못했습니다. 다시 시도해 주세요.";
+                    
+                    // 버튼 활성화 복구
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnHtml;
+                }
+            });
+        }
 
         // 심플 스크롤 리빌 스크립트
         const reveal = () => {

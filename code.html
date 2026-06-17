@@ -152,7 +152,7 @@
 <div class="hidden md:flex gap-8 items-center">
 <a class="font-label-md text-label-md text-primary transition-opacity hover:opacity-80" href="#">Home</a>
 <a class="font-label-md text-label-md text-on-surface-variant transition-opacity hover:opacity-80" href="#">History</a>
-<a class="font-label-md text-label-md text-on-surface-variant transition-opacity hover:opacity-80" href="#">Tuner</a>
+<a class="font-label-md text-label-md text-on-surface-variant transition-opacity hover:opacity-80" href="#tuner">Tuner</a>
 <a class="font-label-md text-label-md text-on-surface-variant transition-opacity hover:opacity-80" href="#">Results</a>
 </div>
 <div class="w-10 h-10 rounded-full bg-surface-container-highest border border-white/10 flex items-center justify-center overflow-hidden active:scale-95 duration-200">
@@ -181,7 +181,7 @@
                         Leverage the power of neural networks to analyze your flavor profile and hardware specs. Get hyper-personalized liquid recommendations in seconds.
                     </p>
 <div class="flex flex-col sm:flex-row gap-4 pt-4">
-<button class="px-8 py-4 bg-gradient-to-r from-secondary to-tertiary text-on-secondary font-headline-md text-headline-md rounded-xl shadow-[0_4px_20px_rgba(76,215,246,0.3)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 group">
+<button onclick="document.getElementById('tuner').scrollIntoView({behavior: 'smooth'})" class="px-8 py-4 bg-gradient-to-r from-secondary to-tertiary text-on-secondary font-headline-md text-headline-md rounded-xl shadow-[0_4px_20px_rgba(76,215,246,0.3)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 group">
                             Start Recommendation
                             <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
 </button>
@@ -260,6 +260,133 @@
 </div>
 </div>
 </section>
+</div>
+</section>
+
+<!-- Taste Tuner Form Section -->
+<section id="tuner" class="relative z-10 px-margin-mobile md:px-margin-desktop py-24 max-w-container-max mx-auto scroll-mt-20">
+    <div class="glass-card rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden">
+        <!-- Ambient Background Shaders -->
+        <div class="absolute -right-24 -bottom-24 w-80 h-80 bg-tertiary/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-24 -top-24 w-80 h-80 bg-secondary/10 blur-3xl pointer-events-none"></div>
+
+        <div class="text-center max-w-2xl mx-auto mb-12 space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-container/20 border border-secondary/20 text-secondary font-label-sm text-label-sm">
+                <span class="material-symbols-outlined text-sm">tune</span>
+                <span>Taste Profile Tuner</span>
+            </div>
+            <h2 class="font-display text-display-mobile md:text-headline-lg">Tune Your Taste Profile</h2>
+            <p class="text-on-surface-variant font-body-md">Fill out your profile below and we will match you with the perfect customized blend.</p>
+        </div>
+
+        <form action="https://formspree.io/f/mojzzqgd" method="POST" id="taste-form" class="space-y-8 max-w-3xl mx-auto">
+            <!-- Customer Information -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Name -->
+                <div class="space-y-2">
+                    <label for="name" class="block font-label-md text-label-sm text-outline uppercase tracking-wider">Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your name" 
+                        class="w-full px-4 py-3 rounded-xl bg-surface-container border border-white/10 text-on-surface placeholder:text-outline/40 focus:border-tertiary focus:ring-1 focus:ring-tertiary focus:outline-none transition-all">
+                </div>
+                <!-- Phone Last 4 Digits -->
+                <div class="space-y-2">
+                    <label for="phone_last_4" class="block font-label-md text-label-sm text-outline uppercase tracking-wider">Last 4 Digits of Phone Number</label>
+                    <input type="text" id="phone_last_4" name="phone_last_4" pattern="[0-9]{4}" maxlength="4" required placeholder="e.g., 1234" 
+                        class="w-full px-4 py-3 rounded-xl bg-surface-container border border-white/10 text-on-surface placeholder:text-outline/40 focus:border-tertiary focus:ring-1 focus:ring-tertiary focus:outline-none transition-all">
+                </div>
+            </div>
+
+            <!-- E-liquid Taste Preferences -->
+            <div class="space-y-6 pt-4 border-t border-white/5">
+                <h3 class="font-headline-md text-lg text-white mb-4">Taste Preferences</h3>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Sweetness -->
+                    <div class="space-y-3 p-5 rounded-2xl bg-white/5 border border-white/5">
+                        <div class="flex justify-between items-center">
+                            <label for="sweetness" class="font-label-md text-sm text-secondary-fixed-dim font-semibold flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-lg">cookie</span> Sweetness
+                            </label>
+                            <span id="sweetness-val" class="font-label-sm text-xs bg-secondary-container/40 text-secondary-fixed px-2 py-0.5 rounded-full">Level 3 (Normal)</span>
+                        </div>
+                        <input type="range" id="sweetness" name="sweetness" min="1" max="5" value="3" 
+                            class="w-full h-2 rounded-lg bg-surface-container-highest appearance-none cursor-pointer accent-secondary focus:outline-none">
+                        <div class="flex justify-between text-[11px] text-outline/60 px-1">
+                            <span>Unsweetened (1)</span>
+                            <span>Very Sweet (5)</span>
+                        </div>
+                    </div>
+
+                    <!-- Cooling -->
+                    <div class="space-y-3 p-5 rounded-2xl bg-white/5 border border-white/5">
+                        <div class="flex justify-between items-center">
+                            <label for="cooling" class="font-label-md text-sm text-tertiary font-semibold flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-lg">ac_unit</span> Cooling (Freshness)
+                            </label>
+                            <span id="cooling-val" class="font-label-sm text-xs bg-tertiary-container/40 text-tertiary px-2 py-0.5 rounded-full">Level 3 (Normal)</span>
+                        </div>
+                        <input type="range" id="cooling" name="cooling" min="1" max="5" value="3" 
+                            class="w-full h-2 rounded-lg bg-surface-container-highest appearance-none cursor-pointer accent-tertiary focus:outline-none">
+                        <div class="flex justify-between text-[11px] text-outline/60 px-1">
+                            <span>None (1)</span>
+                            <span>Very Strong (5)</span>
+                        </div>
+                    </div>
+
+                    <!-- Throat Hit -->
+                    <div class="space-y-3 p-5 rounded-2xl bg-white/5 border border-white/5">
+                        <div class="flex justify-between items-center">
+                            <label for="throat_hit" class="font-label-md text-sm text-primary-fixed-dim font-semibold flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-lg">bolt</span> Throat Hit
+                            </label>
+                            <span id="throat-hit-val" class="font-label-sm text-xs bg-white/10 text-white px-2 py-0.5 rounded-full">Level 3 (Normal)</span>
+                        </div>
+                        <input type="range" id="throat_hit" name="throat_hit" min="1" max="5" value="3" 
+                            class="w-full h-2 rounded-lg bg-surface-container-highest appearance-none cursor-pointer accent-primary focus:outline-none">
+                        <div class="flex justify-between text-[11px] text-outline/60 px-1">
+                            <span>Smooth (1)</span>
+                            <span>Strong (5)</span>
+                        </div>
+                    </div>
+
+                    <!-- Flavor Intensity -->
+                    <div class="space-y-3 p-5 rounded-2xl bg-white/5 border border-white/5">
+                        <div class="flex justify-between items-center">
+                            <label for="flavor_intensity" class="font-label-md text-sm text-secondary-fixed-dim font-semibold flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-lg">air</span> Flavor Intensity
+                            </label>
+                            <span id="flavor-intensity-val" class="font-label-sm text-xs bg-secondary-container/40 text-secondary-fixed px-2 py-0.5 rounded-full">Level 3 (Normal)</span>
+                        </div>
+                        <input type="range" id="flavor_intensity" name="flavor_intensity" min="1" max="5" value="3" 
+                            class="w-full h-2 rounded-lg bg-surface-container-highest appearance-none cursor-pointer accent-secondary focus:outline-none">
+                        <div class="flex justify-between text-[11px] text-outline/60 px-1">
+                            <span>Subtle (1)</span>
+                            <span>Rich (5)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center pt-6">
+                <button type="submit" id="submit-btn" class="w-full sm:w-auto px-12 py-4 bg-gradient-to-r from-secondary to-tertiary text-on-secondary font-headline-md text-headline-md rounded-xl shadow-[0_4px_20px_rgba(76,215,246,0.3)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 mx-auto group">
+                    <span class="material-symbols-outlined group-hover:rotate-12 transition-transform">send</span>
+                    Submit Taste Profile
+                </button>
+            </div>
+        </form>
+
+        <!-- Feedback Alert Box -->
+        <div id="form-feedback" class="hidden mt-8 max-w-xl mx-auto p-6 glass-card rounded-2xl border border-tertiary/20 text-center space-y-4">
+            <div class="w-16 h-16 mx-auto rounded-full bg-tertiary-container/30 flex items-center justify-center text-tertiary" id="feedback-icon-container">
+                <span class="material-symbols-outlined text-3xl" id="feedback-icon">check_circle</span>
+            </div>
+            <h4 class="font-headline-md text-lg text-white" id="feedback-title">Taste Profile Submitted!</h4>
+            <p class="text-on-surface-variant text-sm" id="feedback-desc">Your profile has been saved. We are analyzing the best match for you and will contact you shortly.</p>
+        </div>
+    </div>
+</section>
+
 <!-- Liquid Showcase Section -->
 <section class="relative z-10 px-margin-mobile md:px-margin-desktop py-24 bg-surface-container-lowest/50">
 <div class="max-w-container-max mx-auto flex flex-col md:flex-row items-center gap-16">
@@ -310,7 +437,7 @@
 <span class="material-symbols-outlined">history</span>
 <span class="font-label-sm text-label-sm">History</span>
 </a>
-<a class="flex flex-col items-center justify-center text-outline transition-transform duration-200 active:scale-90" href="#">
+<a class="flex flex-col items-center justify-center text-outline transition-transform duration-200 active:scale-90" href="#tuner">
 <span class="material-symbols-outlined">tune</span>
 <span class="font-label-sm text-label-sm">Tuner</span>
 </a>
@@ -327,6 +454,83 @@
             glow.style.left = e.clientX + 'px';
             glow.style.top = e.clientY + 'px';
         });
+
+        // Real-time Slider Value Updates
+        const sliders = [
+            { id: 'sweetness', valId: 'sweetness-val', prefix: 'Sweetness: ', levels: ['Very Low', 'Low', 'Normal', 'Sweet', 'Very Sweet'] },
+            { id: 'cooling', valId: 'cooling-val', prefix: 'Cooling: ', levels: ['None', 'Light', 'Normal', 'Strong', 'Very Strong'] },
+            { id: 'throat_hit', valId: 'throat-hit-val', prefix: 'Throat Hit: ', levels: ['Smooth', 'Medium', 'Normal', 'Strong', 'Very Strong'] },
+            { id: 'flavor_intensity', valId: 'flavor-intensity-val', prefix: 'Flavor: ', levels: ['Very Light', 'Light', 'Normal', 'Strong', 'Very Rich'] }
+        ];
+
+        sliders.forEach(slider => {
+            const el = document.getElementById(slider.id);
+            const valEl = document.getElementById(slider.valId);
+            if (el && valEl) {
+                const updateVal = () => {
+                    const idx = parseInt(el.value) - 1;
+                    valEl.textContent = `Level ${el.value} (${slider.levels[idx]})`;
+                };
+                el.addEventListener('input', updateVal);
+                updateVal(); // Initial call
+            }
+        });
+
+        // Formspree AJAX Submission
+        const form = document.getElementById('taste-form');
+        const feedback = document.getElementById('form-feedback');
+        const submitBtn = document.getElementById('submit-btn');
+
+        if (form && feedback && submitBtn) {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Disable button & show spinner
+                submitBtn.disabled = true;
+                const originalBtnHtml = submitBtn.innerHTML;
+                submitBtn.innerHTML = `
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-on-secondary inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Sending...
+                `;
+
+                const data = new FormData(form);
+                
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: data,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    feedback.classList.remove('hidden');
+                    feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                    if (response.ok) {
+                        form.classList.add('hidden');
+                        document.getElementById('feedback-icon-container').className = "w-16 h-16 mx-auto rounded-full bg-tertiary-container/30 flex items-center justify-center text-tertiary";
+                        document.getElementById('feedback-icon').textContent = "check_circle";
+                        document.getElementById('feedback-title').textContent = "Profile Saved!";
+                        document.getElementById('feedback-desc').textContent = `Thank you, ${data.get('name')}. Your liquid profile has been sent for analysis. We will matching the best liquid for you based on your inputs.`;
+                        form.reset();
+                    } else {
+                        throw new Error('Network error');
+                    }
+                } catch (error) {
+                    document.getElementById('feedback-icon-container').className = "w-16 h-16 mx-auto rounded-full bg-error-container/30 flex items-center justify-center text-error";
+                    document.getElementById('feedback-icon').textContent = "error";
+                    document.getElementById('feedback-title').textContent = "Submission Failed";
+                    document.getElementById('feedback-desc').textContent = "An error occurred while sending your profile. Please try again.";
+                    
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnHtml;
+                }
+            });
+        }
 
         // Simple scroll reveal
         const reveal = () => {
