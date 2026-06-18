@@ -1,5 +1,19 @@
 <!DOCTYPE html>
-<html class="dark" lang="ko"><head>
+<html lang="ko"><head>
+<script>
+(function () {
+  try {
+    var saved = localStorage.getItem('theme');
+    if (saved === 'light') {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+  } catch (e) {
+    document.documentElement.classList.add('dark');
+  }
+})();
+</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -18,13 +32,86 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
 <style>
+        :root {
+            --c-error: #ba1a1a;
+            --c-surface-container-high: #e5e7ee;
+            --c-on-error-container: #410002;
+            --c-primary: #5f5e60;
+            --c-tertiary-container: #acedff;
+            --c-on-background: #1a1c1e;
+            --c-outline: #74777f;
+            --c-surface-container: #ebedf3;
+            --c-background: #f7f9fc;
+            --c-secondary-container: #f0dbff;
+            --c-tertiary: #006876;
+            --c-on-error: #ffffff;
+            --c-outline-variant: #c4c6cf;
+            --c-inverse-surface: #2f3033;
+            --c-surface-dim: #d8dae0;
+            --c-surface-tint: #5f5e60;
+            --c-surface-variant: #e1e2ec;
+            --c-on-tertiary: #ffffff;
+            --c-on-primary-container: #1b1b1d;
+            --c-error-container: #ffdad6;
+            --c-on-primary: #ffffff;
+            --c-surface: #f7f9fc;
+            --c-on-secondary-container: #2c0051;
+            --c-surface-container-highest: #dfe1e8;
+            --c-surface-container-low: #f1f3f9;
+            --c-on-surface-variant: #44474e;
+            --c-inverse-on-surface: #f1f0f4;
+            --c-surface-container-lowest: #ffffff;
+            --c-on-tertiary-container: #001f26;
+            --c-primary-container: #e5e1e4;
+            --c-secondary: #7a00c9;
+            --c-on-secondary: #ffffff;
+            --c-inverse-primary: #c8c6c8;
+            --c-surface-bright: #ffffff;
+            --c-on-surface: #1a1c1e;
+        }
+        html.dark {
+            --c-error: #ffb4ab;
+            --c-surface-container-high: #1c2b3c;
+            --c-on-error-container: #ffdad6;
+            --c-primary: #c8c6c8;
+            --c-tertiary-container: #00151a;
+            --c-on-background: #d4e4fa;
+            --c-outline: #919095;
+            --c-surface-container: #122131;
+            --c-background: #051424;
+            --c-secondary-container: #6f00be;
+            --c-tertiary: #4cd7f6;
+            --c-on-error: #690005;
+            --c-outline-variant: #47464a;
+            --c-inverse-surface: #d4e4fa;
+            --c-surface-dim: #051424;
+            --c-surface-tint: #c8c6c8;
+            --c-surface-variant: #273647;
+            --c-on-tertiary: #003640;
+            --c-on-primary-container: #7e7d7f;
+            --c-error-container: #93000a;
+            --c-on-primary: #303032;
+            --c-surface: #051424;
+            --c-on-secondary-container: #d6a9ff;
+            --c-surface-container-highest: #273647;
+            --c-surface-container-low: #0d1c2d;
+            --c-on-surface-variant: #c8c6ca;
+            --c-inverse-on-surface: #233143;
+            --c-surface-container-lowest: #010f1f;
+            --c-on-tertiary-container: #008aa1;
+            --c-primary-container: #121214;
+            --c-secondary: #ddb7ff;
+            --c-on-secondary: #490080;
+            --c-inverse-primary: #5f5e60;
+            --c-surface-bright: #2c3a4c;
+            --c-on-surface: #d4e4fa;
+        }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
         body {
-            background-color: #051424;
-            color: #d4e4fa;
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .glass-card {
             background: rgba(255, 255, 255, 0.05);
@@ -57,54 +144,54 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           theme: {
             extend: {
               "colors": {
-                      "error": "#ffb4ab",
-                      "surface-container-high": "#1c2b3c",
+                      "error": "var(--c-error)",
+                      "surface-container-high": "var(--c-surface-container-high)",
                       "primary-fixed-dim": "#c8c6c8",
-                      "on-error-container": "#ffdad6",
-                      "primary": "#c8c6c8",
-                      "tertiary-container": "#00151a",
-                      "on-background": "#d4e4fa",
+                      "on-error-container": "var(--c-on-error-container)",
+                      "primary": "var(--c-primary)",
+                      "tertiary-container": "var(--c-tertiary-container)",
+                      "on-background": "var(--c-on-background)",
                       "secondary-fixed-dim": "#ddb7ff",
                       "primary-fixed": "#e5e1e4",
-                      "outline": "#919095",
-                      "surface-container": "#122131",
-                      "background": "#051424",
-                      "secondary-container": "#6f00be",
+                      "outline": "var(--c-outline)",
+                      "surface-container": "var(--c-surface-container)",
+                      "background": "var(--c-background)",
+                      "secondary-container": "var(--c-secondary-container)",
                       "on-secondary-fixed-variant": "#6900b3",
                       "secondary-fixed": "#f0dbff",
-                      "tertiary": "#4cd7f6",
-                      "on-error": "#690005",
-                      "outline-variant": "#47464a",
-                      "inverse-surface": "#d4e4fa",
-                      "surface-dim": "#051424",
-                      "surface-tint": "#c8c6c8",
-                      "surface-variant": "#273647",
-                      "on-tertiary": "#003640",
+                      "tertiary": "var(--c-tertiary)",
+                      "on-error": "var(--c-on-error)",
+                      "outline-variant": "var(--c-outline-variant)",
+                      "inverse-surface": "var(--c-inverse-surface)",
+                      "surface-dim": "var(--c-surface-dim)",
+                      "surface-tint": "var(--c-surface-tint)",
+                      "surface-variant": "var(--c-surface-variant)",
+                      "on-tertiary": "var(--c-on-tertiary)",
                       "on-secondary-fixed": "#2c0051",
-                      "on-primary-container": "#7e7d7f",
-                      "error-container": "#93000a",
-                      "on-primary": "#303032",
-                      "surface": "#051424",
-                      "on-secondary-container": "#d6a9ff",
-                      "surface-container-highest": "#273647",
-                      "surface-container-low": "#0d1c2d",
-                      "on-surface-variant": "#c8c6ca",
-                      "inverse-on-surface": "#233143",
+                      "on-primary-container": "var(--c-on-primary-container)",
+                      "error-container": "var(--c-error-container)",
+                      "on-primary": "var(--c-on-primary)",
+                      "surface": "var(--c-surface)",
+                      "on-secondary-container": "var(--c-on-secondary-container)",
+                      "surface-container-highest": "var(--c-surface-container-highest)",
+                      "surface-container-low": "var(--c-surface-container-low)",
+                      "on-surface-variant": "var(--c-on-surface-variant)",
+                      "inverse-on-surface": "var(--c-inverse-on-surface)",
                       "on-primary-fixed-variant": "#474649",
                       "on-primary-fixed": "#1b1b1d",
-                      "surface-container-lowest": "#010f1f",
+                      "surface-container-lowest": "var(--c-surface-container-lowest)",
                       "on-tertiary-fixed-variant": "#004e5c",
-                      "on-tertiary-container": "#008aa1",
-                      "primary-container": "#121214",
+                      "on-tertiary-container": "var(--c-on-tertiary-container)",
+                      "primary-container": "var(--c-primary-container)",
                       "tertiary-fixed": "#acedff",
-                      "secondary": "#ddb7ff",
+                      "secondary": "var(--c-secondary)",
                       "tertiary-fixed-dim": "#4cd7f6",
                       "on-tertiary-fixed": "#001f26",
-                      "on-secondary": "#490080",
-                      "inverse-primary": "#5f5e60",
-                      "surface-bright": "#2c3a4c",
-                      "on-surface": "#d4e4fa"
-              },
+                      "on-secondary": "var(--c-on-secondary)",
+                      "inverse-primary": "var(--c-inverse-primary)",
+                      "surface-bright": "var(--c-surface-bright)",
+                      "on-surface": "var(--c-on-surface)"
+                            },
               "borderRadius": {
                       "DEFAULT": "0.25rem",
                       "lg": "0.5rem",
@@ -165,8 +252,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a class="font-label-md text-label-md text-on-surface-variant transition-opacity hover:opacity-80" href="#tuner">튜너</a>
 <a class="font-label-md text-label-md text-on-surface-variant transition-opacity hover:opacity-80" href="#">결과</a>
 </div>
+<div class="flex items-center gap-3">
+<button id="theme-toggle" type="button" aria-label="라이트/다크 모드 전환" title="라이트/다크 모드 전환" class="w-10 h-10 rounded-full bg-surface-container-highest border border-white/10 flex items-center justify-center text-on-surface active:scale-90 hover:opacity-80 transition-all duration-200">
+<span class="material-symbols-outlined text-xl" id="theme-toggle-icon">dark_mode</span>
+</button>
 <div class="w-10 h-10 rounded-full bg-surface-container-highest border border-white/10 flex items-center justify-center overflow-hidden active:scale-95 duration-200">
 <img alt="사용자 아바타" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFmQMuBiq6KqZ6Lu2nx-UCfxCsMMVpgqGIPPyVsWCfY3OyqC_FAABxROPVObZS601NSvKyWRwpC5o5yTEB7JNCjrU6DZ0v1oWs9yJ69ZpCQDmAwqdZsIHnDUw-9YZH0kSRwYrbb-EXHL5_jsXO8aESxlzPgzHHxEikd4OhoobUSrxE-1Uq-9w1Ahx2LproDfoFMSZpWGSq3KcYfPsz-GEmu7M5egLZ7buDHmm4yUar7g-Di33UZZ385GXP5H4lcWfDO_VLug0w5B8"/>
+</div>
 </div>
 </header>
 <!-- 메인 캔버스 -->
@@ -212,7 +304,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="material-symbols-outlined text-3xl text-tertiary" style="font-variation-settings: 'FILL' 1;">fluid</span>
         </div>
         <div class="space-y-1">
-          <h3 class="font-headline-md text-headline-md text-white text-lg">뉴럴 플로우 v2.4</h3>
+          <h3 class="font-headline-md text-headline-md text-on-surface text-lg">뉴럴 플로우 v2.4</h3>
           <p class="font-label-sm text-label-sm text-outline text-xs">점도 및 향 강도 분석 중...</p>
         </div>
       </div>
@@ -283,16 +375,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <!-- 선호 액상 취향 슬라이더 -->
             <div class="space-y-6 pt-4 border-t border-white/5">
-                <h3 class="font-headline-md text-lg text-white mb-4">선호 액상 취향 설정</h3>
+                <h3 class="font-headline-md text-lg text-on-surface mb-4">선호 액상 취향 설정</h3>
                 
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- 단맛 -->
                     <div class="space-y-3 p-5 rounded-2xl bg-white/5 border border-white/5">
                         <div class="flex justify-between items-center">
-                            <label for="sweetness" class="font-label-md text-sm text-secondary-fixed-dim font-semibold flex items-center gap-1.5">
+                            <label for="sweetness" class="font-label-md text-sm text-secondary font-semibold flex items-center gap-1.5">
                                 <span class="material-symbols-outlined text-lg">cookie</span> 단맛
                             </label>
-                            <span id="sweetness-val" class="font-label-sm text-xs bg-secondary-container/40 text-secondary-fixed px-2 py-0.5 rounded-full">3단계 (보통)</span>
+                            <span id="sweetness-val" class="font-label-sm text-xs bg-secondary-container/40 text-on-secondary-container px-2 py-0.5 rounded-full">3단계 (보통)</span>
                         </div>
                         <input type="range" id="sweetness" name="sweetness" min="1" max="5" value="3" 
                             class="w-full h-2 rounded-lg bg-surface-container-highest appearance-none cursor-pointer accent-secondary focus:outline-none">
@@ -321,10 +413,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <!-- 타격감 -->
                     <div class="space-y-3 p-5 rounded-2xl bg-white/5 border border-white/5">
                         <div class="flex justify-between items-center">
-                            <label for="throat_hit" class="font-label-md text-sm text-primary-fixed-dim font-semibold flex items-center gap-1.5">
+                            <label for="throat_hit" class="font-label-md text-sm text-on-surface font-semibold flex items-center gap-1.5">
                                 <span class="material-symbols-outlined text-lg">bolt</span> 타격감 (목넘김)
                             </label>
-                            <span id="throat-hit-val" class="font-label-sm text-xs bg-white/10 text-white px-2 py-0.5 rounded-full">3단계 (보통)</span>
+                            <span id="throat-hit-val" class="font-label-sm text-xs bg-white/10 text-on-surface px-2 py-0.5 rounded-full">3단계 (보통)</span>
                         </div>
                         <input type="range" id="throat_hit" name="throat_hit" min="1" max="5" value="3" 
                             class="w-full h-2 rounded-lg bg-surface-container-highest appearance-none cursor-pointer accent-primary focus:outline-none">
@@ -337,10 +429,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <!-- 향강도 -->
                     <div class="space-y-3 p-5 rounded-2xl bg-white/5 border border-white/5">
                         <div class="flex justify-between items-center">
-                            <label for="flavor_intensity" class="font-label-md text-sm text-secondary-fixed-dim font-semibold flex items-center gap-1.5">
+                            <label for="flavor_intensity" class="font-label-md text-sm text-secondary font-semibold flex items-center gap-1.5">
                                 <span class="material-symbols-outlined text-lg">air</span> 향 강도
                             </label>
-                            <span id="flavor-intensity-val" class="font-label-sm text-xs bg-secondary-container/40 text-secondary-fixed px-2 py-0.5 rounded-full">3단계 (보통)</span>
+                            <span id="flavor-intensity-val" class="font-label-sm text-xs bg-secondary-container/40 text-on-secondary-container px-2 py-0.5 rounded-full">3단계 (보통)</span>
                         </div>
                         <input type="range" id="flavor_intensity" name="flavor_intensity" min="1" max="5" value="3" 
                             class="w-full h-2 rounded-lg bg-surface-container-highest appearance-none cursor-pointer accent-secondary focus:outline-none">
@@ -366,7 +458,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="w-16 h-16 mx-auto rounded-full bg-tertiary-container/30 flex items-center justify-center text-tertiary" id="feedback-icon-container">
                 <span class="material-symbols-outlined text-3xl" id="feedback-icon">check_circle</span>
             </div>
-            <h4 class="font-headline-md text-lg text-white" id="feedback-title">취향 프로필 저장 완료!</h4>
+            <h4 class="font-headline-md text-lg text-on-surface" id="feedback-title">취향 프로필 저장 완료!</h4>
             <p class="text-on-surface-variant text-sm" id="feedback-desc">성공적으로 분석 요청이 전달되었습니다. 고객님의 취향에 가장 알맞은 액상을 선정하여 안내해 드리겠습니다.</p>
         </div>
     </div>
@@ -481,6 +573,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- 인터랙티브 마우스 글로우 레이어 -->
 <div class="fixed pointer-events-none w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px] -translate-x-1/2 -translate-y-1/2 z-0" id="mouse-glow"></div>
 <script>
+        // 라이트/다크 모드 토글
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeToggleIcon = document.getElementById('theme-toggle-icon');
+
+        const syncThemeIcon = () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            themeToggleIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
+        };
+
+        if (themeToggle && themeToggleIcon) {
+            syncThemeIcon();
+            themeToggle.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                syncThemeIcon();
+            });
+        }
+
         const glow = document.getElementById('mouse-glow');
         document.addEventListener('mousemove', (e) => {
             glow.style.left = e.clientX + 'px';
@@ -595,7 +705,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Disqus 댓글 섹션 -->
     <section class="relative z-10 px-margin-mobile md:px-margin-desktop py-12 max-w-container-max mx-auto border-t border-white/5 mt-12">
         <div class="glass-card rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden">
-            <h3 class="font-headline-md text-headline-md text-white mb-8 flex items-center gap-2">
+            <h3 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-2">
                 <span class="material-symbols-outlined text-secondary">forum</span>
                 사용자 후기 및 문의
             </h3>
